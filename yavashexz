@@ -1,0 +1,55 @@
+import glob
+import os
+import csv
+import time
+
+
+def print_docs(directory):
+    files = glob.glob(directory + '/**', recursive=True)
+    for file in files:
+        if not os.path.isdir(file):
+            print(file)
+
+directory_path = "C:\\Program Files"
+print_docs(directory_path)
+input('Нажмити клавишу для следующего задания')
+
+# 2
+def longest_words(file):
+    with open(file, encoding='utf-8') as f:
+        slovo1 = []
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            slovo1 += line.split()
+        print('цикл 1', slovo1)
+
+        maxslovo = 0
+        longest_slova = []
+        for slovoO in slovo1:
+            if len(slovO) > maxslovo:
+                maxslovo = len(slovoO)
+                longest_slova = [slovoO]
+            elif len(slovO) == maxslovo:
+                longest_slova.append(slovoO)
+        print('цикл 2', maxslovo)
+
+    return longest_slova
+
+
+result = longest_words('article.txt')
+print('Слово с наибольшей длиной:', result)
+input('Нажмити клавишу для следующего задания')
+
+#3
+
+with open('rows_300.csv', 'w', newline='') as file:
+    zapis = csv.writer(file)
+    zapis.writerow(['№', 'Секунда', 'Микросекунда'])
+    for i in range(1, 301):
+        vremya = time.time()
+        sekunda = int(vremya)
+        microsekunda = int((vremya - sekunda) * 1000000)
+        zapis.writerow([i, sekunda, microsekunda])
+        time.sleep(0.01)
